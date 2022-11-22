@@ -5,21 +5,35 @@ import PlanetContext from './PlanetContext';
 function PlanetProvider({ children }) {
   const [planetas, setPlanetas] = useState([]);
   const [fetchConcluido, setFerchConcluido] = useState(false);
+  const [planetasFilter, setPlanetasFilter] = useState([]);
 
   const adicionarPlanetas = (novoArray) => {
     setPlanetas(novoArray);
+    setPlanetasFilter(novoArray);
   };
 
   const concluirFetch = () => {
     setFerchConcluido(true);
   };
 
+  const filtarPorNome = (planetNome) => {
+    const novoArray = planetas.filter(
+      (e) => e.name.toLowerCase().includes(planetNome.toLowerCase()),
+    );
+    if (novoArray.length === 0) {
+      setPlanetasFilter(planetas);
+    } else {
+      setPlanetasFilter(novoArray);
+    }
+  };
+
   const values = useMemo(() => ({
-    planetas,
+    planetasFilter,
     fetchConcluido,
     adicionarPlanetas,
     concluirFetch,
-  }), [planetas]);
+    filtarPorNome,
+  }), [planetas, fetchConcluido, planetasFilter]);
 
   return (
     <PlanetContext. Provider value={ values }>
