@@ -2,7 +2,8 @@ import { useContext } from 'react';
 import PlanetContext from '../Context/PlanetContext';
 
 function Table() {
-  const planetas = useContext(PlanetContext);
+  const { planetas } = useContext(PlanetContext);
+
   return (
     <table border="1">
       <thead>
@@ -35,6 +36,7 @@ function Table() {
         })}
       </tbody>
     </table>
+
   );
 }
 export default Table;

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './App.css';
 import PlanetContext from './Context/PlanetContext';
 import Table from './Componentes/Table';
+import FormFilter from './Componentes/FormFilter';
 
 function App() {
-  const [planetas, setPlanetas] = useState([]);
+  const { adicionarPlanetas, fetchConcluido, concluirFetch } = useContext(PlanetContext);
   useEffect(() => {
     fetch('https://swapi.dev/api/planets')
       .then((retornoAPI) => retornoAPI.json())
@@ -16,17 +17,20 @@ function App() {
             ...e,
           };
         });
-        setPlanetas(novoArray);
+        adicionarPlanetas(novoArray);
+        concluirFetch();
       });
   }, []);
 
-  if (planetas.length === 0) {
+  if (fetchConcluido === false) {
     return (<p>Carregando...</p>);
   }
   return (
-    <PlanetContext.Provider value={ planetas }>
+    <>
+      <FormFilter />
       <Table />
-    </PlanetContext.Provider>
+    </>
+
   );
 }
 
