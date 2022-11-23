@@ -30,23 +30,26 @@ function PlanetProvider({ children }) {
     }
   };
 
+  const filtrandoPorNumero = (colunaTable, operador, valor, arrayFilter) => {
+    let arrayFiltrado = [];
+    if (operador === 'maior que') {
+      arrayFiltrado = arrayFilter.filter((e) => Number(e[colunaTable]) > Number(valor));
+      return arrayFiltrado;
+    } if (operador === 'menor que') {
+      arrayFiltrado = arrayFilter.filter((e) => Number(e[colunaTable]) < Number(valor));
+      return arrayFiltrado;
+    }
+    arrayFiltrado = arrayFilter.filter((e) => Number(e[colunaTable]) === Number(valor));
+    return arrayFiltrado;
+  };
+
   const filtrarPorNumero = (arrayValores) => {
     const [colunaTable, operador, valor] = arrayValores;
     let novoArray = [];
     if (planetasFilter.length === tamannhoArray) {
-      if (operador === 'maior que') {
-        novoArray = planetas.filter((e) => Number(e[colunaTable]) > Number(valor));
-      } else if (operador === 'menor que') {
-        novoArray = planetas.filter((e) => Number(e[colunaTable]) < Number(valor));
-      } else {
-        novoArray = planetas.filter((e) => Number(e[colunaTable]) === Number(valor));
-      }
-    } else if (operador === 'maior que') {
-      novoArray = planetasFilter.filter((e) => Number(e[colunaTable]) > Number(valor));
-    } else if (operador === 'menor que') {
-      novoArray = planetasFilter.filter((e) => Number(e[colunaTable]) < Number(valor));
+      novoArray = filtrandoPorNumero(colunaTable, operador, valor, planetas);
     } else {
-      novoArray = planetasFilter.filter((e) => Number(e[colunaTable]) === Number(valor));
+      novoArray = filtrandoPorNumero(colunaTable, operador, valor, planetasFilter);
     }
 
     if (novoArray.length === 0) {
