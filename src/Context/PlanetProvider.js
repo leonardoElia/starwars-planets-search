@@ -2,10 +2,13 @@ import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import PlanetContext from './PlanetContext';
 
+const tamannhoArray = 10;
+
 function PlanetProvider({ children }) {
   const [planetas, setPlanetas] = useState([]);
   const [fetchConcluido, setFerchConcluido] = useState(false);
   const [planetasFilter, setPlanetasFilter] = useState([]);
+  const [filtrosNumericos, setFiltrosNumericos] = useState([]);
 
   const adicionarPlanetas = (novoArray) => {
     setPlanetas(novoArray);
@@ -30,16 +33,26 @@ function PlanetProvider({ children }) {
   const filtrarPorNumero = (arrayValores) => {
     const [colunaTable, operador, valor] = arrayValores;
     let novoArray = [];
-    if (operador === 'maior que') {
-      novoArray = planetas.filter((e) => Number(e[colunaTable]) > Number(valor));
+    if (planetasFilter.length === tamannhoArray) {
+      if (operador === 'maior que') {
+        novoArray = planetas.filter((e) => Number(e[colunaTable]) > Number(valor));
+      } else if (operador === 'menor que') {
+        novoArray = planetas.filter((e) => Number(e[colunaTable]) < Number(valor));
+      } else {
+        novoArray = planetas.filter((e) => Number(e[colunaTable]) === Number(valor));
+      }
+    } else if (operador === 'maior que') {
+      novoArray = planetasFilter.filter((e) => Number(e[colunaTable]) > Number(valor));
     } else if (operador === 'menor que') {
-      novoArray = planetas.filter((e) => Number(e[colunaTable]) < Number(valor));
+      novoArray = planetasFilter.filter((e) => Number(e[colunaTable]) < Number(valor));
     } else {
-      novoArray = planetas.filter((e) => Number(e[colunaTable]) === Number(valor));
+      novoArray = planetasFilter.filter((e) => Number(e[colunaTable]) === Number(valor));
     }
+
     if (novoArray.length === 0) {
       setPlanetasFilter(planetas);
     } else {
+      setFiltrosNumericos([...filtrosNumericos, { colunaTable, operador, valor }]);
       setPlanetasFilter(novoArray);
     }
   };
@@ -47,11 +60,12 @@ function PlanetProvider({ children }) {
   const values = useMemo(() => ({
     planetasFilter,
     fetchConcluido,
+    filtrosNumericos,
     adicionarPlanetas,
     concluirFetch,
     filtarPorNome,
     filtrarPorNumero,
-  }), [planetas, fetchConcluido, planetasFilter]);
+  }), [planetas, fetchConcluido, planetasFilter, filtrosNumericos]);
 
   return (
     <PlanetContext. Provider value={ values }>

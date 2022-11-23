@@ -3,6 +3,7 @@ import './App.css';
 import PlanetContext from './Context/PlanetContext';
 import Table from './Componentes/Table';
 import FormFilter from './Componentes/FormFilter';
+import FiltrosFeitos from './Componentes/FiltrosFeitos';
 
 function App() {
   const { adicionarPlanetas, fetchConcluido, concluirFetch } = useContext(PlanetContext);
@@ -28,6 +29,7 @@ function App() {
   return (
     <>
       <FormFilter />
+      <FiltrosFeitos />
       <Table />
     </>
 
