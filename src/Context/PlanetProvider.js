@@ -27,12 +27,30 @@ function PlanetProvider({ children }) {
     }
   };
 
+  const filtrarPorNumero = (arrayValores) => {
+    const [colunaTable, operador, valor] = arrayValores;
+    let novoArray = [];
+    if (operador === 'maior que') {
+      novoArray = planetas.filter((e) => Number(e[colunaTable]) > Number(valor));
+    } else if (operador === 'menor que') {
+      novoArray = planetas.filter((e) => Number(e[colunaTable]) < Number(valor));
+    } else {
+      novoArray = planetas.filter((e) => Number(e[colunaTable]) === Number(valor));
+    }
+    if (novoArray.length === 0) {
+      setPlanetasFilter(planetas);
+    } else {
+      setPlanetasFilter(novoArray);
+    }
+  };
+
   const values = useMemo(() => ({
     planetasFilter,
     fetchConcluido,
     adicionarPlanetas,
     concluirFetch,
     filtarPorNome,
+    filtrarPorNumero,
   }), [planetas, fetchConcluido, planetasFilter]);
 
   return (
