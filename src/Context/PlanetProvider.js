@@ -27,7 +27,7 @@ function PlanetProvider({ children }) {
       (e) => e.name.toLowerCase().includes(planetNome.toLowerCase()),
     );
     if (novoArray.length === 0) {
-      setPlanetasFilter(planetas);
+      // setPlanetasFilter(planetas);
     } else {
       setPlanetasFilter(novoArray);
     }
@@ -56,16 +56,15 @@ function PlanetProvider({ children }) {
     let novoArray = [];
     if (planetasFilter.length === tamannhoArray) {
       novoArray = filtrandoPorNumero(colunaTable, operador, valor, planetas);
-      removerColuna(colunaTable);
     } else {
       novoArray = filtrandoPorNumero(colunaTable, operador, valor, planetasFilter);
-      removerColuna(colunaTable);
     }
 
     if (novoArray.length === 0) {
-      setPlanetasFilter(planetas);
+      // setPlanetasFilter(planetas);
     } else {
       setFiltrosNumericos([...filtrosNumericos, { colunaTable, operador, valor }]);
+      removerColuna(colunaTable);
       setPlanetasFilter(novoArray);
     }
   };

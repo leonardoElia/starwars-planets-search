@@ -32,6 +32,10 @@ function FormFilter() {
   const buttonFiltrar = () => {
     const valores = [colunaTable, operador, valor];
     filtrarPorNumero(valores);
+    const novoValueSelected = colunaFiltros.filter((e) => e !== colunaTable);
+    setColunaTable(novoValueSelected[0]);
+    setOperador('maior que');
+    setValor(0);
   };
   return (
     <form>
