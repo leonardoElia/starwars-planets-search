@@ -6,7 +6,7 @@ function FormFilter() {
   const [colunaTable, setColunaTable] = useState('population');
   const [operador, setOperador] = useState('maior que');
   const [valor, setValor] = useState(0);
-  const { filtarPorNome, filtrarPorNumero } = useContext(PlanetContext);
+  const { filtarPorNome, filtrarPorNumero, colunaFiltros } = useContext(PlanetContext);
 
   const mudarBuscaNome = ({ target }) => {
     const { value } = target;
@@ -50,11 +50,9 @@ function FormFilter() {
           onChange={ mudarColuna }
           id="coluna"
         >
-          <option value="population">population</option>
-          <option value="period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {colunaFiltros.map((e, i) => (
+            <option key={ i } value={ e }>{e}</option>
+          ))}
         </select>
       </label>
 

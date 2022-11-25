@@ -9,6 +9,9 @@ function PlanetProvider({ children }) {
   const [fetchConcluido, setFerchConcluido] = useState(false);
   const [planetasFilter, setPlanetasFilter] = useState([]);
   const [filtrosNumericos, setFiltrosNumericos] = useState([]);
+  const arrayOption = ['population', 'orbital_period', 'diameter', 'rotation_period',
+    'surface_water'];
+  const [colunaFiltros, setColunaFiltros] = useState(arrayOption);
 
   const adicionarPlanetas = (novoArray) => {
     setPlanetas(novoArray);
@@ -43,13 +46,20 @@ function PlanetProvider({ children }) {
     return arrayFiltrado;
   };
 
+  const removerColuna = (coluna) => {
+    const novoFiltro = colunaFiltros.filter((e) => e !== coluna);
+    setColunaFiltros(novoFiltro);
+  };
+
   const filtrarPorNumero = (arrayValores) => {
     const [colunaTable, operador, valor] = arrayValores;
     let novoArray = [];
     if (planetasFilter.length === tamannhoArray) {
       novoArray = filtrandoPorNumero(colunaTable, operador, valor, planetas);
+      removerColuna(colunaTable);
     } else {
       novoArray = filtrandoPorNumero(colunaTable, operador, valor, planetasFilter);
+      removerColuna(colunaTable);
     }
 
     if (novoArray.length === 0) {
@@ -64,11 +74,12 @@ function PlanetProvider({ children }) {
     planetasFilter,
     fetchConcluido,
     filtrosNumericos,
+    colunaFiltros,
     adicionarPlanetas,
     concluirFetch,
     filtarPorNome,
     filtrarPorNumero,
-  }), [planetas, fetchConcluido, planetasFilter, filtrosNumericos]);
+  }), [planetas, fetchConcluido, planetasFilter, filtrosNumericos, colunaFiltros]);
 
   return (
     <PlanetContext. Provider value={ values }>
