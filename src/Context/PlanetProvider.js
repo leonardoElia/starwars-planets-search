@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import PlanetContext from './PlanetContext';
 
@@ -12,6 +12,26 @@ function PlanetProvider({ children }) {
   const arrayOption = ['population', 'orbital_period', 'diameter', 'rotation_period',
     'surface_water'];
   const [colunaFiltros, setColunaFiltros] = useState(arrayOption);
+  const [filtroRemovido, setFiltroRemovido] = useState({});
+
+  useEffect(() => {
+    if (filtrosNumericos.length === 0) {
+      setPlanetasFilter(planetas);
+    } else if (filtrosNumericos.length >= 1) {
+      const { colunaTable, valor, operador } = filtrosNumericos[0];
+      let novoArray = [];
+      if (operador === 'maior que') {
+        novoArray = planetas.filter((e) => Number(e[colunaTable]) > Number(valor));
+        setPlanetasFilter(novoArray);
+      } if (operador === 'menor que') {
+        novoArray = planetas.filter((e) => Number(e[colunaTable]) < Number(valor));
+        setPlanetasFilter(novoArray);
+      } if (operador === 'igual a') {
+        novoArray = planetas.filter((e) => Number(e[colunaTable]) === Number(valor));
+        setPlanetasFilter(novoArray);
+      }
+    }
+  }, [filtroRemovido]);
 
   const adicionarPlanetas = (novoArray) => {
     setPlanetas(novoArray);
@@ -51,6 +71,18 @@ function PlanetProvider({ children }) {
     setColunaFiltros(novoFiltro);
   };
 
+  const removerDescricaoFiltragem = (coluna) => {
+    const filtroRemove = filtrosNumericos.find((e) => e.colunaTable === coluna);
+    const novoFiltroNumerico = filtrosNumericos.filter((e) => e.colunaTable !== coluna);
+    setFiltrosNumericos(novoFiltroNumerico);
+    setFiltroRemovido(filtroRemove);
+  };
+
+  const adicionarColuna = (coluna) => {
+    setColunaFiltros([...colunaFiltros, coluna]);
+    removerDescricaoFiltragem(coluna);
+  };
+
   const filtrarPorNumero = (arrayValores) => {
     const [colunaTable, operador, valor] = arrayValores;
     let novoArray = [];
@@ -69,6 +101,12 @@ function PlanetProvider({ children }) {
     }
   };
 
+  const removerFiltros = () => {
+    setColunaFiltros(arrayOption);
+    setFiltrosNumericos([]);
+    setPlanetasFilter(planetas);
+  };
+
   const values = useMemo(() => ({
     planetasFilter,
     fetchConcluido,
@@ -78,7 +116,10 @@ function PlanetProvider({ children }) {
     concluirFetch,
     filtarPorNome,
     filtrarPorNumero,
-  }), [planetas, fetchConcluido, planetasFilter, filtrosNumericos, colunaFiltros]);
+    adicionarColuna,
+    removerFiltros,
+  }), [planetas,
+    fetchConcluido, planetasFilter, filtrosNumericos, colunaFiltros, filtroRemovido]);
 
   return (
     <PlanetContext. Provider value={ values }>
@@ -88,7 +129,7 @@ function PlanetProvider({ children }) {
 }
 
 PlanetProvider.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default PlanetProvider;

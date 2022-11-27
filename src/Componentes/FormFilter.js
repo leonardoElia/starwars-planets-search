@@ -6,7 +6,8 @@ function FormFilter() {
   const [colunaTable, setColunaTable] = useState('population');
   const [operador, setOperador] = useState('maior que');
   const [valor, setValor] = useState(0);
-  const { filtarPorNome, filtrarPorNumero, colunaFiltros } = useContext(PlanetContext);
+  const { filtarPorNome, filtrarPorNumero, colunaFiltros,
+    removerFiltros } = useContext(PlanetContext);
 
   const mudarBuscaNome = ({ target }) => {
     const { value } = target;
@@ -37,59 +38,72 @@ function FormFilter() {
     setOperador('maior que');
     setValor(0);
   };
+  const removerTodosFiltros = () => {
+    removerFiltros();
+  };
   return (
-    <form>
-      <input
-        type="text"
-        placeholder="Busque planeta pelo nome"
-        value={ buscarNome }
-        onChange={ mudarBuscaNome }
-        data-testid="name-filter"
-      />
-      <label htmlFor="coluna">
-        Coluna
-        <select
-          value={ colunaTable }
-          data-testid="column-filter"
-          onChange={ mudarColuna }
-          id="coluna"
-        >
-          {colunaFiltros.map((e, i) => (
-            <option key={ i } value={ e }>{e}</option>
-          ))}
-        </select>
-      </label>
-
-      <label htmlFor="operador">
-        Operador
-        <select
-          value={ operador }
-          data-testid="comparison-filter"
-          onChange={ mudarOperador }
-          id="operador"
-        >
-          <option value="maior que">maior que</option>
-          <option value="menor que">menor que</option>
-          <option value="igual a">igual a</option>
-        </select>
-      </label>
-
-      <input
-        type="number"
-        onChange={ mudarValor }
-        value={ valor }
-        data-testid="value-filter"
-      />
-
+    <>
       <button
+        data-testid="button-remove-filters"
         type="button"
-        data-testid="button-filter"
-        onClick={ buttonFiltrar }
+        onClick={ removerTodosFiltros }
       >
-        FILTRAR
+        Remover todas filtragens
 
       </button>
-    </form>
+      <form>
+        <input
+          type="text"
+          placeholder="Busque planeta pelo nome"
+          value={ buscarNome }
+          onChange={ mudarBuscaNome }
+          data-testid="name-filter"
+        />
+        <label htmlFor="coluna">
+          Coluna
+          <select
+            value={ colunaTable }
+            data-testid="column-filter"
+            onChange={ mudarColuna }
+            id="coluna"
+          >
+            {colunaFiltros.map((e, i) => (
+              <option key={ i } value={ e }>{e}</option>
+            ))}
+          </select>
+        </label>
+
+        <label htmlFor="operador">
+          Operador
+          <select
+            value={ operador }
+            data-testid="comparison-filter"
+            onChange={ mudarOperador }
+            id="operador"
+          >
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
+          </select>
+        </label>
+
+        <input
+          type="number"
+          onChange={ mudarValor }
+          value={ valor }
+          data-testid="value-filter"
+        />
+
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ buttonFiltrar }
+        >
+          FILTRAR
+
+        </button>
+      </form>
+    </>
   );
 }
 
