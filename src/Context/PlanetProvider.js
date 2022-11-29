@@ -122,9 +122,9 @@ function PlanetProvider({ children }) {
     fetchConcluido, planetasFilter, filtrosNumericos, colunaFiltros, filtroRemovido]);
 
   return (
-    <PlanetContext. Provider value={ values }>
+    <PlanetContext.Provider value={ values }>
       {children}
-    </PlanetContext. Provider>
+    </PlanetContext.Provider>
   );
 }
 

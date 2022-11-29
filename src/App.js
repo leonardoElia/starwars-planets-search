@@ -7,6 +7,7 @@ import FiltrosFeitos from './Componentes/FiltrosFeitos';
 
 function App() {
   const { adicionarPlanetas, fetchConcluido, concluirFetch } = useContext(PlanetContext);
+
   useEffect(() => {
     fetch('https://swapi.dev/api/planets')
       .then((retornoAPI) => retornoAPI.json())
