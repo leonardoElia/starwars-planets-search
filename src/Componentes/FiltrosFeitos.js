@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import PlanetContext from '../Context/PlanetContext';
+import '../style/filtrosFeitos.css';
 
 function FiltrosFeitos() {
   const { filtrosNumericos, adicionarColuna } = useContext(PlanetContext);
@@ -9,20 +10,21 @@ function FiltrosFeitos() {
     adicionarColuna(name);
   };
   return (
-    <>
+    <div>
       {filtrosNumericos.map((e, i) => (
-        <div key={ i } data-testid="filter">
+        <div key={ i } className="filter">
           <span>{`${e.colunaTable} ${e.operador} ${e.valor} `}</span>
           <button
+            className="buttonExcluir"
             type="button"
             name={ e.colunaTable }
             onClick={ apagarFiltro }
           >
-            X
 
+            x
           </button>
         </div>))}
-    </>
+    </div>
   );
 }
 

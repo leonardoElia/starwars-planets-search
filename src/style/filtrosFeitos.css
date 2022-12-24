@@ -1,0 +1,30 @@
+.buttonExcluir {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+   padding-right: 12px;
+    margin-left: 8px;
+    background-color: transparent;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid red;
+    color: red;
+    margin-left: -55;
+    font-size: 16px;
+}
+
+.buttonExcluir:active {
+    transform: scale(.9);
+    transition: all 100ms ease;
+}
+
+.buttonExcluir:hover{
+    background-color: red;
+    color: white;
+}
+
+.filter {
+   margin-bottom: 10px;
+}

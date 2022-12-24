@@ -1,4 +1,5 @@
 cypress/*
 coverage/*
 src/tests/*
+src/Componentes/FormFilter.js
 cypress.config.js

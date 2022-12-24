@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import PlanetContext from '../Context/PlanetContext';
 
+import '../style/table.css';
+
 function Table() {
   const { planetasFilter } = useContext(PlanetContext);
 
@@ -17,7 +19,6 @@ function Table() {
           <th>Terrain</th>
           <th>Surface Water</th>
           <th>Population</th>
-          <th>Films</th>
           <th>Created</th>
           <th>Edited</th>
           <th>URL</th>

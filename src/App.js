@@ -4,6 +4,7 @@ import PlanetContext from './Context/PlanetContext';
 import Table from './Componentes/Table';
 import FormFilter from './Componentes/FormFilter';
 import FiltrosFeitos from './Componentes/FiltrosFeitos';
+import Carregando from './Componentes/Carregando';
 
 function App() {
   const { adicionarPlanetas, fetchConcluido, concluirFetch } = useContext(PlanetContext);
@@ -15,6 +16,7 @@ function App() {
         const { results } = data;
         const novoArray = results.map((e) => {
           delete e.residents;
+          delete e.films;
           return {
             ...e,
           };
@@ -25,7 +27,7 @@ function App() {
   }, []);
 
   if (fetchConcluido === false) {
-    return (<p>Carregando...</p>);
+    return (<p><Carregando /></p>);
   }
   return (
     <>
