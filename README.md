@@ -13,7 +13,7 @@
 * css
 
 ## acesse o link para visualizar a aplicação
-[]()
+[Projeto Starwars-planets-search](https://starwars-planets-search-weld.vercel.app/)
 
 ## como rodar o projeto localmente
 1. faça o clone desde repositorio 
