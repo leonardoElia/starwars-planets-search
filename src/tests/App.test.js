@@ -5,9 +5,8 @@ import PlanetProvider from '../Context/PlanetProvider';
 import mock from './fetchMock';
 import dados from './dadosTable';
 import userEvent from '@testing-library/user-event';
-import { toBeInTheDocument } from '@testing-library/jest-dom/dist/matchers';
 
-const cedulas = ['Name','Rotation Period','Orbital Period','Diameter','Climate','Gravity','Terrain','Surface Water','Population','Films','Created','Edited','URL']
+const cedulas = ['Name','Rotation Period','Orbital Period','Diameter','Climate','Gravity','Terrain','Surface Water','Population','Created','Edited','URL']
 const operadores = ['maior que', 'menor que', 'igual a']
 const colunas = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water']
 
@@ -18,7 +17,7 @@ describe('Testes do Componente App', () => {
         <App />
       </PlanetProvider>
     );
-    expect(screen.getByText('Carregando...')).toBeInTheDocument()
+    expect(screen.getByText('Loading...')).toBeInTheDocument()
   });
 
   test('Testando se formulario esta presente', async () => {
@@ -31,14 +30,14 @@ describe('Testes do Componente App', () => {
       </PlanetProvider>
     );
   await waitForElementToBeRemoved(() =>
-  screen.getByText('Carregando...'),
+  screen.getByText('Loading...'),
   )
-  expect(screen.getByPlaceholderText('Busque planeta pelo nome')).toBeInTheDocument()
+  expect(screen.getByPlaceholderText('Procurar por nome')).toBeInTheDocument()
   expect(screen.getByLabelText('Coluna')).toBeInTheDocument()
   expect(screen.getByLabelText('Operador')).toBeInTheDocument()
   expect(screen.getByTestId('value-filter')).toBeInTheDocument()
   expect(screen.getByRole('button', {name: 'FILTRAR'})).toBeInTheDocument()
-  expect(screen.getByRole('button', {name: 'Remover todas filtragens'})).toBeInTheDocument()
+  expect(screen.getByRole('button', {name: 'REMOVER FILTROS'})).toBeInTheDocument()
   });
 
   test('Testando as opção dos selecteds', async () => {
@@ -51,7 +50,7 @@ describe('Testes do Componente App', () => {
       </PlanetProvider>
     );
   await waitForElementToBeRemoved(() =>
-  screen.getByText('Carregando...'),
+  screen.getByText('Loading...'),
   )
 const selectedColuna = screen.getByLabelText('Coluna')
 const selectedOperador = screen.getByLabelText('Operador')
@@ -78,7 +77,7 @@ colunas.forEach((e) => {
       </PlanetProvider>
     );
   await waitForElementToBeRemoved(() =>
-  screen.getByText('Carregando...'),
+  screen.getByText('Loading...'),
   )
 
   cedulas.forEach((e) => {
@@ -96,7 +95,7 @@ colunas.forEach((e) => {
       </PlanetProvider>
     );
   await waitForElementToBeRemoved(() =>
-  screen.getByText('Carregando...'),
+  screen.getByText('Loading...'),
   )
 dados.forEach((e) => {
   expect(screen.getByText(e.name)).toBeInTheDocument()
@@ -123,7 +122,7 @@ dados.forEach((e) => {
       </PlanetProvider>
     );
   await waitForElementToBeRemoved(() =>
-  screen.getByText('Carregando...'),
+  screen.getByText('Loading...'),
   )
 const selectedColuna = screen.getByLabelText('Coluna')
 const selectedOperador = screen.getByLabelText('Operador')
@@ -136,7 +135,7 @@ userEvent.type(inputNumber, '1000')
 userEvent.click(buttonFiltrar)
 
 expect(screen.getByText('Yavin IV')).toBeInTheDocument()
-const buttonX = screen.getByText('X')
+const buttonX = screen.getByText('x')
 userEvent.click(buttonX)
 
 dados.forEach((e) => {
@@ -159,7 +158,7 @@ userEvent.type(inputNumber, '1000')
 userEvent.click(buttonFiltrar)
 
 expect(screen.getByText('Yavin IV')).toBeInTheDocument()
-const buttonALL = screen.getByText('Remover todas filtragens')
+const buttonALL = screen.getByText('REMOVER FILTROS')
 userEvent.click(buttonALL)
 
 dados.forEach((e) => {
@@ -188,9 +187,9 @@ dados.forEach((e) => {
       </PlanetProvider>
     );
   await waitForElementToBeRemoved(() =>
-  screen.getByText('Carregando...'),
+  screen.getByText('Loading...'),
   )
-  const inputBusca = screen.getByPlaceholderText('Busque planeta pelo nome')
+  const inputBusca = screen.getByPlaceholderText('Procurar por nome')
   userEvent.type(inputBusca, 'Tatooine')
   expect(screen.getByText('Tatooine')).toBeInTheDocument()
   userEvent.type(inputBusca, 'TATOOINE')
@@ -208,7 +207,7 @@ dados.forEach((e) => {
       </PlanetProvider>
     );
   await waitForElementToBeRemoved(() =>
-  screen.getByText('Carregando...'),
+  screen.getByText('Loading...'),
   )
 
 const selectedColuna = screen.getByLabelText('Coluna')
@@ -231,7 +230,7 @@ userEvent.type(inputNumber, '304')
 userEvent.click(buttonFiltrar)
 
 expect(screen.getByText('Tatooine')).toBeInTheDocument()
-const buttonX = screen.getAllByText('X')
+const buttonX = screen.getAllByText('x')
 userEvent.click(buttonX[1])
 
 expect(screen.getByText('Tatooine')).toBeInTheDocument()
