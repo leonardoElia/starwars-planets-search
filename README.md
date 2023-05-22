@@ -2,7 +2,7 @@
 
 ## sobre o projeto
  O starwars-planets-search é um projeto onde eu consumo uma api que trás informações de planetas que existem no universo de filmes starwars, e organizo os plenetas e suas informações em uma tabela para que seja realiada a filtragem dos mesmos.<br> 
- Esse é um projeto onde eu desenvolvo a habilidade de fazer filtragens de dados, essa aplicação foi desenvolvida usando componentes funcionais do react e estado global, também uso a bibilioteca testing-library para fazer testes no comportamento da aplicação 
+ Esse é um projeto onde eu desenvolvo a habilidade de fazer filtragens de dados, essa aplicação foi desenvolvida usando componentes funcionais do react e estado global, também uso a bibilioteca testing-library para fazer testes no comportamento da aplicação.
 
 ## tecnologias e ferramentas utilizadas utilizadas
 * React
